@@ -1,0 +1,12 @@
+{
+  "name": "mavis-eglinton-physiotherapy",
+  "version": "1.0.0",
+  "description": "Website for Mavis Eglinton Physiotherapy",
+  "scripts": {
+    "build:css": "tailwindcss -i ./css/input.css -o ./css/style.css",
+    "watch:css": "tailwindcss -i ./css/input.css -o ./css/style.css --watch"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.4.1"
+  }
+}
