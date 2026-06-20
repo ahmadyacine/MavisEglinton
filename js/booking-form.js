@@ -100,42 +100,104 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    /**
-     * Adapter function for form submission.
-     * Can be replaced with Google Forms hidden iframe, Google Apps Script fetch, etc.
-     */
     async function submitAppointmentRequest(data) {
-        // --- Google Forms Integration Example ---
-        /*
-        const GOOGLE_FORM_CONFIG = {
-            actionUrl: "REPLACE_WITH_GOOGLE_FORM_RESPONSE_URL",
-            fields: {
-                fullName: "entry.REPLACE_ID_1",
-                phone: "entry.REPLACE_ID_2",
-                email: "entry.REPLACE_ID_3",
-                service: "entry.REPLACE_ID_4",
-                preferredDate: "entry.REPLACE_ID_5",
-                firstTime: "entry.REPLACE_ID_6",
-                secondTime: "entry.REPLACE_ID_7",
-                notes: "entry.REPLACE_ID_8",
-                contactMethod: "entry.REPLACE_ID_9",
-                patientStatus: "entry.REPLACE_ID_10"
+        return new Promise((resolve) => {
+            const GOOGLE_FORM_ACTION_URL = "https://docs.google.com/forms/u/0/d/e/1FAIpQLSdcy5u-8oD3jfd7cilQwKFSGxpzJ11RuDbzye4uHrtUzstpSg/formResponse";
+            
+            // Create a temporary hidden iframe
+            const iframe = document.createElement('iframe');
+            iframe.name = 'google-form-iframe';
+            iframe.id = 'google-form-iframe';
+            iframe.style.display = 'none';
+            document.body.appendChild(iframe);
+            
+            // Create a temporary hidden form
+            const hiddenForm = document.createElement('form');
+            hiddenForm.action = GOOGLE_FORM_ACTION_URL;
+            hiddenForm.method = 'POST';
+            hiddenForm.target = 'google-form-iframe';
+            hiddenForm.style.display = 'none';
+            
+            const addField = (name, value) => {
+                const input = document.createElement('input');
+                input.type = 'hidden';
+                input.name = name;
+                input.value = value;
+                hiddenForm.appendChild(input);
+            };
+            
+            addField("entry.366908778", data.fullName);
+            addField("entry.177957105", data.phone);
+            addField("entry.305681150", data.email);
+            addField("entry.1754329757", data.contactMethod);
+            
+            // Fix: Google Forms expects the exact string of the option
+            let patientStatusValue = data.patientStatus;
+            if (patientStatusValue === "New Patient") {
+                patientStatusValue = "Yes, I am a new patient";
+            } else if (patientStatusValue === "Returning Patient") {
+                patientStatusValue = "No, I am a returning patient";
             }
-        };
-
-        const formBody = new URLSearchParams();
-        formBody.append(GOOGLE_FORM_CONFIG.fields.fullName, data.fullName);
-        // ... append other fields ...
-
-        // Fetch to Google Apps Script endpoint or directly to Form
-        return fetch("YOUR_GOOGLE_APPS_SCRIPT_URL", {
-            method: "POST",
-            body: JSON.stringify(data),
-            headers: { "Content-Type": "application/json" }
+            addField("entry.862576963", patientStatusValue);
+            
+            addField("entry.87216819", data.service);
+            
+            // Date split
+            if (data.preferredDate) {
+                const dateParts = data.preferredDate.split('-');
+                if (dateParts.length === 3) {
+                    addField("entry.1877400405_year", dateParts[0]);
+                    addField("entry.1877400405_month", dateParts[1]);
+                    addField("entry.1877400405_day", dateParts[2]);
+                }
+            }
+            
+            // Time 1 split
+            if (data.firstTime) {
+                const firstTimeParts = data.firstTime.split(':');
+                if (firstTimeParts.length === 2) {
+                    addField("entry.1223880026_hour", firstTimeParts[0]);
+                    addField("entry.1223880026_minute", firstTimeParts[1]);
+                }
+            }
+            
+            // Time 2 split
+            if (data.secondTime) {
+                const secondTimeParts = data.secondTime.split(':');
+                if (secondTimeParts.length === 2) {
+                    addField("entry.761111440_hour", secondTimeParts[0]);
+                    addField("entry.761111440_minute", secondTimeParts[1]);
+                }
+            }
+            
+            addField("entry.549098388", data.notes);
+            addField("entry.1977812454", "I consent to Mavis Eglinton Physiotherapy contacting me by phone or email regarding this appointment request. I understand that submitting this form does not confirm an appointment.");
+            
+            document.body.appendChild(hiddenForm);
+            
+            let loadCount = 0;
+            iframe.onload = () => {
+                loadCount++;
+                if (loadCount > 1) { // Triggers after form submits and page loads in iframe
+                    setTimeout(() => {
+                        document.body.removeChild(hiddenForm);
+                        document.body.removeChild(iframe);
+                        resolve();
+                    }, 500);
+                }
+            };
+            
+            // Append and submit
+            hiddenForm.submit();
+            
+            // Fallback timeout in case iframe onload fails to trigger
+            setTimeout(() => {
+                if (document.getElementById('google-form-iframe')) {
+                    document.body.removeChild(hiddenForm);
+                    document.body.removeChild(iframe);
+                    resolve();
+                }
+            }, 3000);
         });
-        */
-
-        // Simulate network request for demonstration
-        return new Promise(resolve => setTimeout(resolve, 1000));
     }
 });

@@ -7,28 +7,28 @@ document.addEventListener('DOMContentLoaded', () => {
      */
     const GOOGLE_PLACE_ID = "REPLACE_WITH_CLINIC_PLACE_ID";
     const GOOGLE_REVIEWS_ENDPOINT = "REPLACE_WITH_SECURE_BACKEND_ENDPOINT";
-    const GOOGLE_REVIEW_URL = "REPLACE_WITH_GOOGLE_REVIEW_LINK";
+    const GOOGLE_REVIEW_URL = "https://www.google.com/maps/place/Mavis+Eglinton+Physiotherapy/@43.590853,-79.671653,601m/data=!3m1!1e3!4m8!3m7!1s0x882b41e26549ddf5:0x12f95021b80673d2!8m2!3d43.590853!4d-79.671653!9m1!1b1!16s%2Fg%2F11g3_bmtyf!18m1!1e1?entry=ttu&g_ep=EgoyMDI2MDYxNi4wIKXMDSoASAFQAw%3D%3D";
 
     // Sample Local JSON Response for demonstration purposes only.
     // In production, this should be fetched securely from GOOGLE_REVIEWS_ENDPOINT.
     const mockReviews = [
         {
-            author_name: "Jane Doe",
+            author_name: "Ruba A.",
+            rating: 5,
+            relative_time_description: "3 weeks ago",
+            text: "Highly professional and knowledgeable staff. They really care about their patients and take their time to explain the treatment plan. My physiotherapy sessions here helped me recover from my back pain so quickly."
+        },
+        {
+            author_name: "Bassem M.",
             rating: 5,
             relative_time_description: "a month ago",
-            text: "Excellent multidisciplinary team. The physiotherapist listened to my concerns and helped me recover from my sports injury quickly. Highly recommend Mavis Eglinton Physiotherapy!"
+            text: "Excellent clinic! I have been receiving massage therapy and chiropractic care here. The team is very supportive, the environment is clean, and appointments are always on time. Highly recommend this clinic in Mississauga!"
         },
         {
-            author_name: "Michael Smith",
+            author_name: "Sarah M.",
             rating: 5,
             relative_time_description: "3 months ago",
-            text: "Very professional and clean clinic. The massage therapist was incredibly knowledgeable and helped relieve my chronic neck tension. Great location in Mississauga."
-        },
-        {
-            author_name: "Sarah Jenkins",
-            rating: 4,
-            relative_time_description: "5 months ago",
-            text: "I attended for MVA rehabilitation. The front desk staff was very helpful with my insurance paperwork, and the care I received from the chiropractor was top-notch."
+            text: "Clean and friendly clinic. The registered massage therapists are fantastic and the receptionist is always welcoming and helpful with insurance claims. Great experience overall."
         }
     ];
 

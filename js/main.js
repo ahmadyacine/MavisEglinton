@@ -77,4 +77,20 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
+
+    // 5. Hero Carousel
+    const heroCarousel = document.getElementById('hero-carousel');
+    const heroPrev = document.getElementById('hero-prev');
+    const heroNext = document.getElementById('hero-next');
+    
+    if (heroCarousel && heroPrev && heroNext) {
+        heroPrev.addEventListener('click', (e) => {
+            e.preventDefault();
+            heroCarousel.scrollBy({ left: -heroCarousel.clientWidth, behavior: 'smooth' });
+        });
+        heroNext.addEventListener('click', (e) => {
+            e.preventDefault();
+            heroCarousel.scrollBy({ left: heroCarousel.clientWidth, behavior: 'smooth' });
+        });
+    }
 });
