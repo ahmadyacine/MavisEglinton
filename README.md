@@ -109,7 +109,7 @@ Before going live, verify the following:
 - [ ] Real URLs have been added for social media profiles and Google Reviews.
 - [ ] Google Form or backend endpoint is connected, tested, and successfully emails `mephysiotherapy1@gmail.com`.
 - [ ] CAPTCHA is enabled and functioning.
-- [ ] Practitioner names, bios, and specific service details (e.g., direct billing options, hydrotherapy pool availability) have been verified.
+- [ ] Practitioner names, bios, and specific service details (e.g., direct billing options, holistic massage availability) have been verified.
 - [ ] The `privacy-policy.html` and other healthcare disclaimers have been reviewed by the clinic or a legal professional.
 - [ ] Ownership of the domain, hosting, Google Cloud project, and analytics accounts are in the clinic's control.
 - [ ] The CSS is compiled using `npm run build:css` and the final files are generated using `python build.py`.
