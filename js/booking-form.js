@@ -175,16 +175,15 @@ document.addEventListener('DOMContentLoaded', () => {
             
             document.body.appendChild(hiddenForm);
             
-            let loadCount = 0;
             iframe.onload = () => {
-                loadCount++;
-                if (loadCount > 1) { // Triggers after form submits and page loads in iframe
-                    setTimeout(() => {
+                // Triggers after form submits and page loads in iframe
+                setTimeout(() => {
+                    if (document.getElementById('google-form-iframe')) {
                         document.body.removeChild(hiddenForm);
                         document.body.removeChild(iframe);
                         resolve();
-                    }, 500);
-                }
+                    }
+                }, 500);
             };
             
             // Append and submit
