@@ -197,7 +197,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     document.body.removeChild(iframe);
                     resolve();
                 }
-            }, 3000);
+            }, 15000);
         });
     }
 });
